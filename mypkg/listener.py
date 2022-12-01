@@ -1,23 +1,23 @@
 import rclpy
 from rclpy.node import Node
-#from std_msgs.msg import Int16
+from std_msgs.msg import Int16#lesson8
 #from person_msgs.msg import Person#add msg
-from person_msgs.srv import Query#add query
+#from person_msgs.srv import Query#add query
 
-"""
+#"""#lesson8
 def cb(msg):
     global node
-    #node.get_logger().info("Listen: %d" % msg.data)
-    node.get_logger().info("Listen: %s" % msg)
+    node.get_logger().info("Listen: %d" % msg.data)#lesson8
+    #node.get_logger().info("Listen: %s" % msg)#add msg
 
 rclpy.init()
 node = Node("listener")
-#pub = node.create_subscription(Int16, "countup", cb, 10)
-pub = node.create_subscription(Person, "person", cb, 10)
+pub = node.create_subscription(Int16, "countup", cb, 10)#lesson8
+#pub = node.create_subscription(Person, "person", cb, 10)#person
 
 rclpy.spin(node)
-"""
 
+"""#query
 def main():
     rclpy.init()
     node = Node("listener")
@@ -46,3 +46,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+"""
