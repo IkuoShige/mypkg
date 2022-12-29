@@ -5,17 +5,40 @@ from std_msgs.msg import Int16#lesson8
 #from person_msgs.srv import Query#add query
 
 #"""#lesson8
-def cb(msg):
-    global node
-    node.get_logger().info("Listen: %d" % msg.data)#lesson8
-    #node.get_logger().info("Listen: %s" % msg)#add msg
-
+#def cb(msg):
+#    global node
+#    node.get_logger().info("Listen: %d" % msg.data)#lesson8
+#    #node.get_logger().info("Listen: %s" % msg)#add msg
+"""
 rclpy.init()
 node = Node("listener")
 pub = node.create_subscription(Int16, "countup", cb, 10)#lesson8
 #pub = node.create_subscription(Person, "person", cb, 10)#person
 
 rclpy.spin(node)
+"""
+class Listener():
+    def __init__(self, node):
+        self.pub = node.create_subscription(Int16, "countup", self.cb, 10)
+        self.node = node
+        #self.publish()
+        #self.cb()
+
+    def cb(self, msg):
+        self.node.get_logger().info("Listen: %d" % msg.data)
+
+    #def publish(self):
+    #    self.pub = node.create_subscription(Int16, "countup", cb, 10)
+        
+
+def main():
+    rclpy.init()
+    node = Node("listener")
+    listener = Listener(node)
+    rclpy.spin(node)
+
+if __name__ == '__main__':
+    main()
 
 """#query
 def main():
