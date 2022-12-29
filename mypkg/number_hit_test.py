@@ -15,7 +15,7 @@ from std_msgs.msg import Int32
 rclpy.init()
 node = Node("game")
 #pub = node.create_publisher("game", Int32, queue_size=1)
-pub = node.create_publisher("game", Int32, 1)
+pub = node.create_publisher(Int32, "game", 1)
 #rate = rclpy.Rate(10)
 rate = node.create_rate(10)
 
@@ -127,11 +127,14 @@ while(round < max_round):
             print("")
             break
         else:
+            print("else !")
             miss = miss + 1
 
         print(x)
-        pub.publish(miss)
-        rate.sleep()
+        miss_32 = miss
+        miss_32 = Int32()
+        pub.publish(miss_32)
+        #rate.sleep()
         #rclpy.spin(node)
 
 
