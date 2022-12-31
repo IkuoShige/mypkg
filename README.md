@@ -128,6 +128,9 @@ hit :0, blow :1
 you lose
 ```
 
+## ノードとトピック
+![Test Image 6](https://github.com/IkuoShige/mypkg/blob/main/image/rqt_graph_mypkg.png)
+
 # テスト環境
 * Ubuntu 20.04.5 LTS
 
