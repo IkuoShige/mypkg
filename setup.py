@@ -26,6 +26,8 @@ setup(
             'talker = mypkg.talker:main',
             'listener = mypkg.listener:main',
             'number_hit_test = mypkg.number_hit_test:main',
+            'hit_and_blow = mypkg.hit_and_blow:main',
+            'hit_and_blow_B = mypkg.hit_and_blow_B:main',
         ],
     },
 )
