@@ -16,6 +16,10 @@ talker.py, listener.py
 
 * クラスやメソッドを用いて整理し、publisherとsubscriberを実装
 
+talker_before_lesson_11.py, listener_before_lesson_11.py
+
+* 講義のlesson_11までのtalkerとlistener
+
 talk_listen.launch.py
 
 * talker.py と listener.py の launchファイル
