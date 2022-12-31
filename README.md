@@ -131,6 +131,17 @@ you lose
 ## ノードとトピック
 ![Test Image 6](https://github.com/IkuoShige/mypkg/blob/main/image/rqt_graph_mypkg.png)
 
+/hit_and_blow_AのノードからA側のプレイヤーの答案の情報が含まれているトピックである/Aをlistener_Bのノードに渡している
+
+/hit_and_blow_BのノードからB側のプレイヤーの答案の情報が含まれているトピックである/Bをlistener_Aのノードに渡している
+
+トピックの内容
+* プレイヤーの答案
+* hitのカウント
+* blowのカウント
+* 勝利のカウント
+* ターンのカウント
+
 # テスト環境
 * Ubuntu 20.04.5 LTS
 
