@@ -10,31 +10,12 @@ import random
 from person_msgs.msg import Person
 import time
 
-"""
-class Subscribe_publishers():
-    def __init__(self):
-        # Subscriberを作成
-        self.subscriber_b = rclpy.create_subscription(Pose2D, 'blue', self.callback_blue)
-        #self.subscriber_r = rclpy.create_subscription(Pose2D, 'red', self.callback_red)
-        #self.subscriber_g = rclpy.create_subscription(Pose2D, 'green', self.callback_green)
-        # messageの型を作成
-        self.message = Pose2D()
 
-    def callback_blue(self, message):
-        #print("callback!!!!!!!!!!!")
-        global sub_blue
-        sub_blue = message
-        #print("sub_blue_x: "+str(sub_blue.x) + "sub_blue_y: "+ str(sub_blue.y))
-        # callback時の処理
-        #self.pub.make_msg(message)
-        # publish
-        #self.pub.send_msg()
-"""
 class Subscribe_publishers():
     def __init__(self, node):
         # Subscriberを作成
         self.subscriber_b = node.create_subscription(Person, "B", self.callback_answer, 10)
-        print("sub")
+        #print("sub")
         #self.subscriber_r = rclpy.create_subscription(Pose2D, 'red', self.callback_red)
         #self.subscriber_g = rclpy.create_subscription(Pose2D, 'green', self.callback_green)
         # messageの型を作成
@@ -49,10 +30,10 @@ class Subscribe_publishers():
         hit_B, blow_B = sub_answer.answer[3],sub_answer.answer[4]
         clear_B = sub_answer.answer[5]
         turn = sub_answer.answer[6]
-        print(answer_B)
-        print(str(hit_B)+str(blow_B))
-        print(clear_B)
-        print(turn)
+        print("answer_B: "+str(answer_B))
+        print("hit_B: "+str(hit_B)+"blow_B: "+str(blow_B))
+        #print(clear_B)
+        #print(turn)
         # callback時の処理
         #self.pub.make_msg(message)
         # publish
@@ -67,7 +48,7 @@ class Hit_And_Blow():
         #node.create_timer(0.5, self.call_back)
         #self.main()
         first = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
-        print(first)
+        #print(first)
         self.pub_answer.publish(first)
 
     #def call_back(self):
@@ -101,7 +82,6 @@ class Hit_And_Blow():
         while self.n != 1:
             hit = 0
             blow = 0
-            print("turn: "+ str(turn))
             if turn == 0:
                 tmp_1 = int(input("1番目の数を入力してください: "))
                 #print(Int32(tmp_1))
@@ -137,13 +117,13 @@ class Hit_And_Blow():
 
                 print("hit :"+str(hit)+", blow :"+str(blow))
                 if hit == 3:
-                    print("clear!")
+                    #print("clear!")
                     clear_A = 1
                     #print("clear: "+str(clear))
                 turn = 1
                 self.n = 1
             answer = Person(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_A, turn])
-            print(answer)
+            #print(answer)
             self.pub_answer.publish(answer)
         #print("stop clear")
 
@@ -163,7 +143,6 @@ def main():
     global turn
     cnt = 0
     turn = 0
-    print(turn)
     clear_B = 0
     clear_A = 0
     a = rand_ints_nodup(0, 9, 3)
@@ -176,17 +155,15 @@ def main():
     #print(node)
     player = Hit_And_Blow(node_A)
     #rclpy.spin_once(node)
-    print("a!")
     while clear_B != 1 or clear_A == 1:
-        print("clear_B: "+str(clear_B))
-        print("clear_A: "+str(clear_A))
+        #print("clear_B: "+str(clear_B))
+        #print("clear_A: "+str(clear_A))
         if cnt != 0:
             rclpy.spin_once(node)
             #ここでsubしてる
             if clear_B == 1:
                 #you lose
                 break
-        print("aaa")
         player.main()
         #sub = Subscribe_publishers(node)
         #if turn == 1:
@@ -198,7 +175,7 @@ def main():
         #else:
         #    print("draw")
         #    break
-        print("finish spin")
+        #print("finish spin")
         cnt += 1
     #rclpy.spin_once(node)
     #rclpy.shutdown()

@@ -30,10 +30,10 @@ class Subscribe_publishers():
         hit_A, blow_A = sub_answer.answer[3],sub_answer.answer[4]
         clear_A = sub_answer.answer[5]
         turn = sub_answer.answer[6]
-        print(answer_A)
-        print(str(hit_A)+str(blow_A))
-        print(clear_A)
-        print(turn)
+        print("answer_A: "+str(answer_A))
+        print("hit_B: "+str(hit_A)+"blow_B: "+str(blow_A))
+        #print(clear_A)
+        #print(turn)
         # callback時の処理
         #self.pub.make_msg(message)
         # publish
@@ -46,7 +46,7 @@ class Hit_And_Blow():
         #node.create_timer(0.5, self.call_back)
         #self.main()
         first = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
-        print(first)
+        #print(first)
         #self.pub_answer.publish(first)
 
     def call_back(self):
@@ -113,7 +113,7 @@ class Hit_And_Blow():
                 turn = 0
                 self.n = 1
             answer = Person(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_B, turn])
-            print(answer)
+            #print(answer)
             self.pub_answer.publish(answer)
             #print("stop clear")
 
@@ -140,7 +140,7 @@ def main():
     node_B = Node("hit_and_blow_B")
     player = Hit_And_Blow(node_B)
     while clear_A != 1 or clear_B == 1:
-        print("clear: "+str(clear_A))
+        #print("clear: "+str(clear_A))
         rclpy.spin_once(node)#ここでsubしてる
         player.main()
         #sub = Subscribe_publishers(node)
@@ -153,7 +153,7 @@ def main():
         #else:
         #    print("draw")
         #    break
-        print("finish spin")
+        #print("finish spin")
     #rclpy.shutdown()
     #print("test")
     #start hit and blow
