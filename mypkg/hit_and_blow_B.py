@@ -15,15 +15,39 @@ import time
 class Subscribe_publishers():
     def __init__(self, node):
         # Subscriberを作成
+        self.subscriber_enemy_answer = node.create_subscription(Person, "first_number_b", self.callback_first_answer, 8)
         self.subscriber_b = node.create_subscription(Person, "A", self.callback_answer, 10)
+        self.publisher_b = node.create_publisher(Person, "first_number_a", 9)
+        #print("a")
         #self.subscriber_r = rclpy.create_subscription(Pose2D, 'red', self.callback_red)
         #self.subscriber_g = rclpy.create_subscription(Pose2D, 'green', self.callback_green)
         # messageの型を作成
         self.message = Person()
+        time.sleep(2)
+        self.publish_first_answer()
+
+    def publish_first_answer(self):
+        self.enemy_answer = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
+        #print("enemy_answer: "+str(self.enemy_answer))
+        self.publisher_b.publish(self.enemy_answer)
+        time.sleep(1)
+        self.publisher_b.publish(self.enemy_answer)
+
+    def callback_first_answer(self, message):
+        first_answer = message
+        #print("message: "+str(first_answer))
+        global answer_A, hit_A, blow_A, clear_A, turn
+        answer_A = [first_answer.answer[0],first_answer.answer[1],first_answer.answer[2]]
+        #print("first_answer_: "+str(answer_A))
+        hit_A, blow_A = first_answer.answer[3], first_answer.answer[4]
+        clear_A = first_answer.answer[5]
+        turn = first_answer.answer[6]
+        global a
+        a = answer_A
 
     def callback_answer(self, message):
         #print("callback!!!!!!!!!!!")
-        global sub_blue
+        #global sub_blue
         sub_answer = message
         global answer_A, hit_A, blow_A, clear_A, turn
         answer_A = [sub_answer.answer[0],sub_answer.answer[1],sub_answer.answer[2]]
@@ -31,7 +55,7 @@ class Subscribe_publishers():
         clear_A = sub_answer.answer[5]
         turn = sub_answer.answer[6]
         print("answer_A: "+str(answer_A))
-        print("hit_B: "+str(hit_A)+"blow_B: "+str(blow_A))
+        print("hit_A: "+str(hit_A)+", blow_A: "+str(blow_A))
         #print(clear_A)
         #print(turn)
         # callback時の処理
@@ -45,7 +69,7 @@ class Hit_And_Blow():
         self.n = 0
         #node.create_timer(0.5, self.call_back)
         #self.main()
-        first = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
+        #first = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
         #print(first)
         #self.pub_answer.publish(first)
 
@@ -76,6 +100,7 @@ class Hit_And_Blow():
         while self.n != 1:
             hit = 0
             blow = 0
+            #print("turn_1"+str(turn))
             if turn == 1:
                 tmp_1 = int(input("1番目の数を入力してください: "))
                 #print(tmp_1)1
@@ -109,12 +134,11 @@ class Hit_And_Blow():
                 if hit == 3:
                     print("clear!")
                     clear_B = 1
-                    #print("clear: "+str(clear))
                 turn = 0
                 self.n = 1
-            answer = Person(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_B, turn])
-            #print(answer)
-            self.pub_answer.publish(answer)
+                answer = Person(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_B, turn])
+                #print(answer)
+                self.pub_answer.publish(answer)
             #print("stop clear")
 
 def rand_ints_nodup(a, b, k):
@@ -131,16 +155,23 @@ def main():
     global turn
     clear_A = 0
     a = rand_ints_nodup(0, 9, 3)
-    print(a)
+    #a = [4, 5, 6]
+    #a = answer_A
+    print("player_A answer: "+str(a))
     rclpy.init()
     node = Node("listener_B")
     sub = Subscribe_publishers(node)
-    #rclpy.spin(node)
+    time.sleep(0)
+    rclpy.spin_once(node)
+    #rclpy.spin_once(node)
+    #print("enemy: "+str(a))
     #rclpy.init()
     node_B = Node("hit_and_blow_B")
     player = Hit_And_Blow(node_B)
     while clear_A != 1 or clear_B == 1:
         #print("clear: "+str(clear_A))
+        #if cnt != 0:
+        time.sleep(0)
         rclpy.spin_once(node)#ここでsubしてる
         player.main()
         #sub = Subscribe_publishers(node)

@@ -8,18 +8,42 @@ import geometry_msgs
 from geometry_msgs.msg import Pose2D
 import random
 from person_msgs.msg import Person
+
 import time
 
 
 class Subscribe_publishers():
     def __init__(self, node):
         # Subscriberを作成
+        self.publisher_b = node.create_publisher(Person, "first_number_b", 8)
         self.subscriber_b = node.create_subscription(Person, "B", self.callback_answer, 10)
+        self.subscriber_enemy_answer = node.create_subscription(Person, "first_number_a", self.callback_first_answer, 9)
         #print("sub")
         #self.subscriber_r = rclpy.create_subscription(Pose2D, 'red', self.callback_red)
         #self.subscriber_g = rclpy.create_subscription(Pose2D, 'green', self.callback_green)
         # messageの型を作成
+        #rclpy.spin_once(node)
         self.message = Person()
+        self.publish_first_answer()
+
+    def publish_first_answer(self):
+        self.enemy_answer = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 2])
+        #self.enemy_answer = Person(answer=[0, 0, 0, 0, 0, 0, 2])
+        #print("enemy_answer: "+str(self.enemy_answer))
+        self.publisher_b.publish(self.enemy_answer)
+        time.sleep(1)
+        self.publisher_b.publish(self.enemy_answer)
+
+    def callback_first_answer(self, message):
+        first_answer = message
+        global answer_B, hit_B, blow_B, clear_B, turn
+        answer_B = [first_answer.answer[0],first_answer.answer[1],first_answer.answer[2]]
+        #print("first_answer_: "+str(answer_B))
+        hit_B, blow_B = first_answer.answer[3], first_answer.answer[4]
+        clear_B = first_answer.answer[5]
+        turn = first_answer.answer[6]
+        global a
+        a = answer_B
 
     def callback_answer(self, message):
         #print("callback!!!!!!!!!!!")
@@ -31,7 +55,8 @@ class Subscribe_publishers():
         clear_B = sub_answer.answer[5]
         turn = sub_answer.answer[6]
         print("answer_B: "+str(answer_B))
-        print("hit_B: "+str(hit_B)+"blow_B: "+str(blow_B))
+        print("hit_B: "+str(hit_B)+", blow_B: "+str(blow_B))
+
         #print(clear_B)
         #print(turn)
         # callback時の処理
@@ -49,7 +74,7 @@ class Hit_And_Blow():
         #self.main()
         first = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
         #print(first)
-        self.pub_answer.publish(first)
+        #self.pub_answer.publish(first)
 
     #def call_back(self):
     #    global msg
@@ -121,10 +146,11 @@ class Hit_And_Blow():
                     clear_A = 1
                     #print("clear: "+str(clear))
                 turn = 1
+
                 self.n = 1
-            answer = Person(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_A, turn])
-            #print(answer)
-            self.pub_answer.publish(answer)
+                answer = Person(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_A, turn])
+                #print(answer)
+                self.pub_answer.publish(answer)
         #print("stop clear")
 
 def rand_ints_nodup(a, b, k):
@@ -142,19 +168,24 @@ def main():
     global clear_A
     global turn
     cnt = 0
-    turn = 0
+    #turn = 0
     clear_B = 0
     clear_A = 0
     a = rand_ints_nodup(0, 9, 3)
-    print(a)
+    #a = [1, 2, 3]
+    #a = answer_B
+    print("player_B answer: "+str(a))
     rclpy.init()
     node = Node("listener_A")
     sub = Subscribe_publishers(node)
+    #time.sleep(2)
+    rclpy.spin_once(node)
+    #print("enemy: "+str(a))
     #rclpy.init()
     node_A = Node("hit_and_blow_A")
     #print(node)
     player = Hit_And_Blow(node_A)
-    #rclpy.spin_once(node)
+    rclpy.spin_once(node)
     while clear_B != 1 or clear_A == 1:
         #print("clear_B: "+str(clear_B))
         #print("clear_A: "+str(clear_A))
