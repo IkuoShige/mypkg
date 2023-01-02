@@ -16,7 +16,7 @@ class Subscribe_publishers():
     def __init__(self, node):
         # Subscriberを作成
         self.publisher_b = node.create_publisher(Answer, "first_number_b", 8)
-        self.subscriber_b = node.create_subscription(Answer, "B", self.callback_answer, 10)
+        self.subscriber_b = node.create_subscription(Answer, "b", self.callback_answer, 10)
         self.subscriber_enemy_answer = node.create_subscription(Answer, "first_number_a", self.callback_first_answer, 9)
         #print("sub")
         #self.subscriber_r = rclpy.create_subscription(Pose2D, 'red', self.callback_red)
@@ -67,7 +67,7 @@ class Subscribe_publishers():
 class Hit_And_Blow():
     def __init__(self, node):
         #self.pub = node.create_publisher(Int32MultiArray, "A", 10)
-        self.pub_answer = node.create_publisher(Answer, "A", 10)
+        self.pub_answer = node.create_publisher(Answer, "a", 10)
         #self.pub_hit_and_blow = node.create_publisher(Person, "A", 10)
         self.n = 0
         #node.create_timer(0.5, self.call_back)
@@ -176,13 +176,13 @@ def main():
     #a = answer_B
     print("player_B answer: "+str(a))
     rclpy.init()
-    node = Node("listener_A")
+    node = Node("listener_a")
     sub = Subscribe_publishers(node)
     #time.sleep(2)
     rclpy.spin_once(node)
     #print("enemy: "+str(a))
     #rclpy.init()
-    node_A = Node("hit_and_blow_A")
+    node_A = Node("hit_and_blow_a")
     #print(node)
     player = Hit_And_Blow(node_A)
     rclpy.spin_once(node)

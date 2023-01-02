@@ -1,5 +1,6 @@
 # mypkg
 ![test](https://github.com/IkuoShige/mypkg/actions/workflows/test.yml/badge.svg)
+
 こちらは、千葉工業大学先進工学部未来ロボティクス学科2年後期のロボットシステム学の講義で扱っているリポジトリです。
 
 # リポジトリの概要
@@ -79,45 +80,46 @@ Hit&Blowとは
 以下のコマンドで実行が可能
 
 ```
-$ ros2 run mypkg hit_and_blow
-(新しいタブに移動)
-$ ros2 run mypkg hit_and_blow_B
+$ bash ~/ros2_ws/src/mypkg/launch/run.bash
 ```
 
-それぞれのターミナルのタブでゲームを進めていく
-先手は hit_and_blow を実行したタブから
+それぞれのターミナルでゲームを進めていく
+先手は誘導のある方のターミナルから
 
 上記コマンド実行時点での出力(例)
 ```
-(hit_and_blow)
-[8, 4, 0]
+(player A)
+player_B answer: [1, 6, 4]
 1番目の数を入力してください:
 
-(hit_and_blow_B)
-[6, 1, 4]
+(player B)
+player_A answer: [2, 1, 6]
 ```
 
 プログラムの誘導に沿ってゲームを進める
 
 決着時の出力(例)
 ```
-(hit_and_blow)
-1番目の数を入力してください: 8
-2番目の数を入力してください: 4
-3番目の数を入力してください: 0
-hit :3, blow :0
-answer_B: [1, 2, 3]
-hit_B: 0blow_B: 1
-you win
-
-(hit_and_blow)
-answer_A: [8, 4, 0]
-hit_B: 3blow_B: 0
+(player A)
 1番目の数を入力してください: 1
 2番目の数を入力してください: 2
 3番目の数を入力してください: 3
-hit :0, blow :1
+hit :0, blow :2
+answer_B: [1, 6, 4]
+hit_B: 3, blow_B: 0
 you lose
+Press a key... close the window
+
+(player B)
+answer_A: [1, 2, 3]
+hit_A: 0, blow_A: 2
+1番目の数を入力してください: 1
+2番目の数を入力してください: 6
+3番目の数を入力してください: 4
+hit :3, blow :0
+clear!
+you win
+Press a key... close the window
 ```
 
 ## ノードとトピック
