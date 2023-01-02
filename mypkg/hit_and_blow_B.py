@@ -7,7 +7,8 @@ from std_msgs.msg import Int32MultiArray
 import geometry_msgs
 from geometry_msgs.msg import Pose2D
 import random
-from person_msgs.msg import Person
+#from person_msgs.msg import Person
+from mypkg.msg import Answer
 import time
 
 
@@ -15,19 +16,19 @@ import time
 class Subscribe_publishers():
     def __init__(self, node):
         # Subscriberを作成
-        self.subscriber_enemy_answer = node.create_subscription(Person, "first_number_b", self.callback_first_answer, 8)
-        self.subscriber_b = node.create_subscription(Person, "A", self.callback_answer, 10)
-        self.publisher_b = node.create_publisher(Person, "first_number_a", 9)
+        self.subscriber_enemy_answer = node.create_subscription(Answer, "first_number_b", self.callback_first_answer, 8)
+        self.subscriber_b = node.create_subscription(Answer, "A", self.callback_answer, 10)
+        self.publisher_b = node.create_publisher(Answer, "first_number_a", 9)
         #print("a")
         #self.subscriber_r = rclpy.create_subscription(Pose2D, 'red', self.callback_red)
         #self.subscriber_g = rclpy.create_subscription(Pose2D, 'green', self.callback_green)
         # messageの型を作成
-        self.message = Person()
+        self.message = Answer()
         time.sleep(2)
         self.publish_first_answer()
 
     def publish_first_answer(self):
-        self.enemy_answer = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
+        self.enemy_answer = Answer(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
         #print("enemy_answer: "+str(self.enemy_answer))
         self.publisher_b.publish(self.enemy_answer)
         time.sleep(1)
@@ -65,7 +66,7 @@ class Subscribe_publishers():
 
 class Hit_And_Blow():
     def __init__(self, node):
-        self.pub_answer = node.create_publisher(Person, "B", 10)
+        self.pub_answer = node.create_publisher(Answer, "B", 10)
         self.n = 0
         #node.create_timer(0.5, self.call_back)
         #self.main()
@@ -74,7 +75,7 @@ class Hit_And_Blow():
         #self.pub_answer.publish(first)
 
     def call_back(self):
-        msg = Person()
+        msg = Answer()
         #self.pub.publish(msg)
 
     def rand_ints_dup(self, a, b, k):
@@ -136,7 +137,7 @@ class Hit_And_Blow():
                     clear_B = 1
                 turn = 0
                 self.n = 1
-                answer = Person(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_B, turn])
+                answer = Answer(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_B, turn])
                 #print(answer)
                 self.pub_answer.publish(answer)
             #print("stop clear")

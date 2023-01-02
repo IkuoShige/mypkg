@@ -7,27 +7,27 @@ from std_msgs.msg import Int32MultiArray, Int32
 import geometry_msgs
 from geometry_msgs.msg import Pose2D
 import random
-from person_msgs.msg import Person
-
+#from person_msgs.msg import Person
+from mypkg.msg import Answer
 import time
 
 
 class Subscribe_publishers():
     def __init__(self, node):
         # Subscriberを作成
-        self.publisher_b = node.create_publisher(Person, "first_number_b", 8)
-        self.subscriber_b = node.create_subscription(Person, "B", self.callback_answer, 10)
-        self.subscriber_enemy_answer = node.create_subscription(Person, "first_number_a", self.callback_first_answer, 9)
+        self.publisher_b = node.create_publisher(Answer, "first_number_b", 8)
+        self.subscriber_b = node.create_subscription(Answer, "B", self.callback_answer, 10)
+        self.subscriber_enemy_answer = node.create_subscription(Answer, "first_number_a", self.callback_first_answer, 9)
         #print("sub")
         #self.subscriber_r = rclpy.create_subscription(Pose2D, 'red', self.callback_red)
         #self.subscriber_g = rclpy.create_subscription(Pose2D, 'green', self.callback_green)
         # messageの型を作成
         #rclpy.spin_once(node)
-        self.message = Person()
+        self.message = Answer()
         self.publish_first_answer()
 
     def publish_first_answer(self):
-        self.enemy_answer = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 2])
+        self.enemy_answer = Answer(answer=[a[0], a[1], a[2], 0, 0, 0, 2])
         #self.enemy_answer = Person(answer=[0, 0, 0, 0, 0, 0, 2])
         #print("enemy_answer: "+str(self.enemy_answer))
         self.publisher_b.publish(self.enemy_answer)
@@ -67,12 +67,12 @@ class Subscribe_publishers():
 class Hit_And_Blow():
     def __init__(self, node):
         #self.pub = node.create_publisher(Int32MultiArray, "A", 10)
-        self.pub_answer = node.create_publisher(Person, "A", 10)
+        self.pub_answer = node.create_publisher(Answer, "A", 10)
         #self.pub_hit_and_blow = node.create_publisher(Person, "A", 10)
         self.n = 0
         #node.create_timer(0.5, self.call_back)
         #self.main()
-        first = Person(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
+        first = Answer(answer=[a[0], a[1], a[2], 0, 0, 0, 0])
         #print(first)
         #self.pub_answer.publish(first)
 
@@ -148,7 +148,7 @@ class Hit_And_Blow():
                 turn = 1
 
                 self.n = 1
-                answer = Person(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_A, turn])
+                answer = Answer(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_A, turn])
                 #print(answer)
                 self.pub_answer.publish(answer)
         #print("stop clear")
