@@ -1,16 +1,8 @@
 # mypkg
+![test](https://github.com/IkuoShige/mypkg/actions/workflows/test.yml/badge.svg)
 こちらは、千葉工業大学先進工学部未来ロボティクス学科2年後期のロボットシステム学の講義で扱っているリポジトリです。
 
-このリポジトリには
-
-* talker.py,listener.py,talk_listen.launch.py
-
-* hit_and_blow.py,hit_and_blow_B.py 
-
-が含まれています
-
 # リポジトリの概要
-![test](https://github.com/IkuoShige/mypkg/actions/workflows/test.yml/badge.svg)
 
 talker.py, listener.py
 
@@ -32,7 +24,7 @@ hit_and_blow.py, hit_and_blow_B.py
 
 ターミナルで以下のコマンドを実行する
 ```
-$ ~/ros2_ws/src/
+$ cd ~/ros2_ws/src/
 $ git clone https://github.com/IkuoShige/mypkg.git
 $ git clone https://github.com/IkuoShige/person_msgs.git
 $ cd ~/ros2_ws/
@@ -89,7 +81,7 @@ Hit&Blowとは
 ```
 $ ros2 run mypkg hit_and_blow
 (新しいタブに移動)
-$ ros2 run mupkg hit_and_blow_B
+$ ros2 run mypkg hit_and_blow_B
 ```
 
 それぞれのターミナルのタブでゲームを進めていく
@@ -144,6 +136,7 @@ you lose
 
 # テスト環境
 * Ubuntu 20.04.5 LTS
+* ROS2 noetic
 
 * Python
     3.7~3.10
