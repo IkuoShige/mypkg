@@ -16,8 +16,8 @@ source $dir/.bashrc
 cd src/mypkg/test/
 echo "read" > "option.txt"
 ls option.txt
-ros2 run mypkg hit_and_blow < 'input.txt' > '/tmp/mypkg.log' &
-ros2 run mypkg hit_and_blow_B < 'input.txt'
+ros2 run mypkg hit_and_blow_B < 'input.txt' &
+ros2 run mypkg hit_and_blow < 'input.txt' > '/tmp/mypkg.log'
 #gnome-terminal -- bash -c "bash run_1.bash"
 #gnome-terminal -- bash -c "ros2 run mypkg hit_and_blow_B < 'input.txt' > '/tmp/mypkg.log'"
 #ros2 run mypkg hit_and_blow_B < 'input.txt' > '/tmp/mypkg.log'
