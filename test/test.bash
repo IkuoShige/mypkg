@@ -5,7 +5,7 @@
 dir=~
 [ "$1" != "" ] && dir="$1"   #引数があったら、そちらをホームに変える。
 
-cd $dir/robo_sys/ros2_ws
+cd $dir/ros2_ws
 colcon build
 source $dir/.bashrc
 #timeout 10 ros2 launch mypkg talk_listen.launch.py > /tmp/mypkg.log
