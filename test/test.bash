@@ -13,9 +13,5 @@ source $dir/.bashrc
 echo "read" > "option.txt"
 gnome-terminal -- bash -c "bash run_1.bash"
 gnome-terminal -- bash -c "bash run_2.bash"
-#echo "read" > "option.txt"
-#gnome-terminal -- bash -c "bash run_1.bash"
-#gnome-terminal -- bash -c "ros2 run mypkg hit_and_blow_B << EOS; echo Press a key... close the window; read -n1"
-#gnome-terminal -- bash -c "bash run_2.bash"
-#gnome-terminal -- bash -c "ros2 run mypkg hit_and_blow << ~/robo_sys/ros2_ws/src/mypkg/test/input.txt; echo Press a key... close the window; read -n1"
+sleep 10
 cat /tmp/mypkg.log | grep 'you win'
