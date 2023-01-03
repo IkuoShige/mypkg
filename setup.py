@@ -18,7 +18,7 @@ setup(
     zip_safe=True,
     maintainer='Ikuo Shige',
     maintainer_email='shigeikuo@gmail.com',
-    description='TODO: Package description',
+    description='hit_and_blow',
     license='BSD-3-Clause',
     tests_require=['pytest'],
     entry_points={

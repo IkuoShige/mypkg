@@ -1,7 +1,7 @@
 # mypkg
 ![test](https://github.com/IkuoShige/mypkg/actions/workflows/test.yml/badge.svg)
 
-こちらは、千葉工業大学先進工学部未来ロボティクス学科2年後期のロボットシステム学の講義で扱っているリポジトリです。
+こちらは、千葉工業大学先進工学部未来ロボティクス学科2年後期のロボットシステム学の講義で扱っているROS2のパッケージのリポジトリです。
 
 # リポジトリの概要
 
