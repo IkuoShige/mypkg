@@ -28,4 +28,4 @@ ros2 run mypkg hit_and_blow < 'input.txt' > '/tmp/mypkg.log'
 #rm "option.txt"
 #cat option.txt
 sleep 10
-cat /tmp/mypkg.log | grep 'you win'
+cat /tmp/mypkg.log | grep 'you lose'
