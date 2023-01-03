@@ -174,12 +174,12 @@ def main():
     clear_B = 0
     clear_A = 0
     a = rand_ints_nodup(0, 9, 3)
-    if os.path.exists('../test/option.txt'):
-        f = open('../test/option.txt', 'r')
+    if os.path.exists('option.txt'):
+        f = open('option.txt', 'r')
         datalist = f.readlines()
         #print(str(datalist[0]))
         if datalist[0] == "read\n":
-            #print("readline")
+            print("readline")
             #f_1 = open('../test/input.txt', 'a')
             a = [1, 2, 3]
             #string = [str(a[0]), '\n', str(a[1]), '\n', str(a[2]),'\n']
