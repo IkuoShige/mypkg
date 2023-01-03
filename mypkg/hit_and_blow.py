@@ -10,6 +10,7 @@ import random
 #from person_msgs.msg import Person
 from mypkg.msg import Answer
 import time
+import os
 
 
 class Subscribe_publishers():
@@ -150,6 +151,7 @@ class Hit_And_Blow():
                 self.n = 1
                 answer = Answer(answer=[tmp_1, tmp_2, tmp_3, hit, blow, clear_A, turn])
                 #print(answer)
+                #time.sleep(0.5)
                 self.pub_answer.publish(answer)
         #print("stop clear")
 
@@ -172,6 +174,20 @@ def main():
     clear_B = 0
     clear_A = 0
     a = rand_ints_nodup(0, 9, 3)
+    if os.path.exists('../test/option.txt'):
+        f = open('../test/option.txt', 'r')
+        datalist = f.readlines()
+        #print(str(datalist[0]))
+        if datalist[0] == "read\n":
+            #print("readline")
+            #f_1 = open('../test/input.txt', 'a')
+            a = [1, 2, 3]
+            #string = [str(a[0]), '\n', str(a[1]), '\n', str(a[2]),'\n']
+            #f_1.writelines(string)
+            #f_1.close()
+        #for i in range(3):
+        #    f.write(str(a[i]))
+        f.close
     #a = [1, 2, 3]
     #a = answer_B
     print("player_B answer: "+str(a))

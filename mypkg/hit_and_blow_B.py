@@ -172,7 +172,7 @@ def main():
     while clear_A != 1 or clear_B == 1:
         #print("clear: "+str(clear_A))
         #if cnt != 0:
-        time.sleep(0.5)
+        time.sleep(1)
         rclpy.spin_once(node)#ここでsubしてる
         player.main()
         #sub = Subscribe_publishers(node)
