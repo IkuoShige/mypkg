@@ -8,7 +8,8 @@ import geometry_msgs
 from geometry_msgs.msg import Pose2D
 import random
 #from person_msgs.msg import Person
-from mypkg.msg import Answer
+#from mypkg.msg import Answer
+from hit_and_blow_msgs.msg import Answer
 import time
 import os
 

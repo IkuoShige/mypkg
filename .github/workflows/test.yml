@@ -9,6 +9,8 @@ jobs:
       - name: build and test
         run: |
           rsync -av ./ /root/ros2_ws/src/mypkg/
+          cd /root/ros2_ws/src/
+          git clone https://github.com/IkuoShige/hit_and_blow_msgs.git
           cd /root/ros2_ws
           rosdep update
           rosdep install -i --from-path src --rosdistro humble -y
