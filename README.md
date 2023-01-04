@@ -27,6 +27,7 @@ hit_and_blow.py, hit_and_blow_B.py
 ```
 $ cd ~/ros2_ws/src/
 $ git clone https://github.com/IkuoShige/mypkg.git
+$ git clone https://github.com/IkuoShige/hit_and_blow_msgs.git
 $ cd ~/ros2_ws/
 $ colcon build
 ```
